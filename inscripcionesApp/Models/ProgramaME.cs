@@ -2,11 +2,12 @@
 {
     public class ProgramaME
     {
-        public string? Id { get; set; }
-        public string? Modalidad { get; set; }
-        public string? Sede { get; set; }
-        public string? Programa { get; set; }
-        //public bool? Ifces { get; set; }
-        //public string? IcfesCode { get; set; }
+        public string? Prog_ID  { get; set; }
+        public string? Escuela  { get; set; }
+        public string? Modalidad  { get; set; }
+        public string? NivelIngreso { get; set; }
+        public string? Sede  { get; set; }
+        public string? Periodo { get; set; }
+        public string? Estado { get; set; }
     }
 }
