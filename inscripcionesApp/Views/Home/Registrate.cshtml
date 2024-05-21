@@ -1,0 +1,198 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+
+<div class="container" style="margin: 30px auto;">
+    <h2 class="text-center">Inscripciones</h2>
+    <p class="text-center" style="max-width: 1200px; margin: 0 auto;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo quod harum doloribus placeat quibusdam ad consectetur tenetur molestiae, corporis autem? Voluptatem, quibusdam quasi provident tempore alias neque officiis est aut!</p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card" style="width: 100%; border-radius: 50px;">
+                <div class="card-body bg-warning">
+                    <h5 class="card-title text-white">1. Información inscripción</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card" style="width: 100%; border-radius: 50px;">
+                <div class="card-body bg-secondary">
+                    <h5 class="card-title text-white">2. Información Personal</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card" style="width: 100%; border-radius: 50px;">
+                <div class="card-body bg-secondary">
+                    <h5 class="card-title text-white">3. Confirme sus datos</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3 mb-3">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            <!-- Ajustado a 10 columnas en pantallas medianas -->
+            <div class="card" style="border: 2px double #eeecec; border-radius: 50px; background:#eeeeee;">
+                <div class="card-body text-center">
+                    <div class="containerCard">
+                        <h2>Crear nuevo registro de libro</h2>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit et corrupti amet distinctio neque? Impedit, modi rem a unde deleniti excepturi quos non incidunt iusto! Perferendis deserunt sed cum earum.</p>
+                    </div>
+
+                    <form>
+                        <div class="container mt-3">
+                            <div class="row" style="border: 1px solid #c7c6c6; border-radius: 10px; padding: 10px 120px;">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="nuevoIngreso" value="nuevo" checked required>
+                                            <label class="form-check-label" for="nuevoIngreso">Nuevo Ingreso</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="reingreso" value="reingreso" required>
+                                            <label class="form-check-label" for="reingreso">Reingreso</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="transferenciaInterna" value="interna" required>
+                                            <label class="form-check-label" for="transferenciaInterna">Transferencia Interna</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="transferenciaExterna" value="externa" required>
+                                            <label class="form-check-label" for="transferenciaExterna">Transferencia Externa</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modalidad y Nivel de Ingreso -->
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <select class="form-select form-select-sm" id="modalidad" required>
+                                        <option value="" selected>Seleccione la modalidad</option>
+                                        <option value="virtual">Virtual</option>
+                                        <option value="presencial">Presencial</option>
+                                    </select>
+                                    <label for="modalidad">Modalidad:</label>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <select class="form-select form-select-sm" id="programaIngreso" required>
+                                        <option value="" selected>Seleccione el nivel de ingreso</option>
+                                        <option value="Bachillerato">Bachillerato</option>
+                                        <option value="Tecnico">Técnico</option>
+                                        <option value="Tecnologo">Tecnólogo</option>
+                                        <option value="Profesional">Profesional</option>
+                                    </select>
+                                    <label for="programaIngreso">Nivel ingreso:</label>
+                                </div>
+                            </div>
+
+                            <!-- Sede y Periodo -->
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <select class="form-select form-select-sm" id="sede" required>
+                                        <option selected disabled>Seleccione una sede</option>
+                                        <option value="Bogota">Bogotá</option>
+                                        <option value="Cali">Cali</option>
+                                        <option value="Medellin">Medellín</option>
+                                        <option value="Villavicencio">Villavicencio</option>
+                                        <option value="Cartagena">Cartagena</option>
+                                    </select>
+                                    <label for="sede">Sede:</label>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <select class="form-select form-select-sm" id="periodo" required>
+                                        <option selected disabled>Seleccione el período</option>
+                                        <option value="20242P">20242P</option>
+                                        <option value="20242V">20242V</option>
+                                    </select>
+                                    <label for="periodo">Período:</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="divLoading"></div>
+
+                    <a id="continuar-btn" href="#" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a>
+                    <a id="cancelar-btn" class="btn bg-light text-dark btn-lg my-4">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Captura el clic en el botón de "Continuar"
+        $('#continuar-btn').click(function (event) {
+            event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+            // Realiza la solicitud AJAX para enviar los datos del formulario
+            enviarDatosEstudios();
+        });
+
+        // Captura el clic en el botón de "Cancelar"
+        $('#cancelar-btn').click(function (event) {
+            event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+            // Redirige a la vista Home/Index
+            window.location.href = '/Home/Index';
+        });
+    });
+
+    // Función para enviar los datos del formulario al servidor
+    function enviarDatosEstudios() {
+        // Obtiene los datos del formulario
+        var formData = {
+            tipoIngreso: $("input[name='tipoIngreso']:checked").val(),
+            tipoObra: $("#tipoObra").val(),
+            programaIngreso: $("#programaIngreso").val(),
+            sede: $("#sede").val(),
+            periodo: $("#periodo").val()
+        };
+
+        // Realiza la solicitud AJAX
+    $.ajax({
+            url: "/Estudiante/CrearDatosEstudios",
+            type: 'POST',
+            contentType: 'application/json',
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                if (response.success) {
+                    // Redirecciona a Google
+                    window.location.href = 'https://www.google.com';
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '¡Atención!',
+                        text: "Debe llenar todos los campos",
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '¡Atención!',
+                    text: 'Hubo un error al procesar tu petición.'
+                });
+            }
+        });
+    }
+</script>
+
+
+

@@ -7,23 +7,41 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/inscripcionesApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inscripciones App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark text-white" data-bs-theme="dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="./img/PikPng.com_opened-book-png_2492827.png" alt="Bootstrap" width="50" height="40" style="margin-bottom: 5px; margin-right: 10px; filter: brightness(500);">
+                    <h2 class="mb-0">Universidad Proto</h2>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto" style="margin-left: 35px;">
+                        <!-- Ajuste del margen izquierdo a 35px -->
+                        <li class="nav-item" style="margin-right: 20px;">
+                            <!-- Añade margen derecho -->
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            @* <a class="nav-link active" aria-current="page" href="./index.html">Inicio</a> *@
                         </li>
+                        <li class="nav-item" style="margin-right: 20px;">
+                            <a class="nav-link active" asp-area="" asp-controller="Estudiante" asp-action="Registrate">Registrate</a>
+                        </li>
+                        <li class="nav-item" style="margin-right: 20px;">
+                            <!-- Añade margen derecho -->
+@*                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Registrate">Registrate</a> *@
+                            <a class="nav-link active" aria-current="page" href="./actualizarRegistro.html">Acerca de nosotros</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link active" aria-current="page" href="./crearRegistro.html">Inicia Sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -36,11 +54,14 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Módulo creado por Jhonattan Halcón Casallas Felipe - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    <footer class="navbar-expand-lg text-muted bg-dark" style="height: 60px; position: static; bottom: 0; width: 100%; display: flex; justify-content: center; align-items: center;">
+        <div class="container-footer text-white">
+            &copy; @DateTime.Now.ToString("yyyy") - Página creada por Jhonattan Halcón Casallas Felipe
         </div>
     </footer>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

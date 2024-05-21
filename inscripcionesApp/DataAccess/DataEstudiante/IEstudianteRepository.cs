@@ -1,9 +1,11 @@
-﻿namespace InscripcionesApp.DataAccess.DataEstudiante
+﻿using inscripcionesApp.Models;
+
+namespace InscripcionesApp.DataAccess.DataEstudiante
 {
     public interface IEstudianteRepository
     {
-        // CrearEstudiante      // (Cara del estudiante)
-
-        // ActualizarEstudiante // (Cara del estudiante)
+        Task<int>CrearDatosEstudios(ProgramaME programa);
+        Task CrearInformacionEstudiante(EstudianteME estudiante, int programaId);
     }
 }
+
