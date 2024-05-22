@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Mi Página";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h1>Bienvenido a mi página</h1>
+
+    <form id="miFormulario">
+        <label for="tipoIngreso">Tipo de Ingreso:</label>
+        <input type="text" id="tipoIngreso" name="tipoIngreso" />
+
+        <label for="tipoObra">Tipo de Obra:</label>
+        <input type="text" id="tipoObra" name="tipoObra" />
+
+        <label for="programaIngreso">Programa de Ingreso:</label>
+        <input type="text" id="programaIngreso" name="programaIngreso" />
+
+        <label for="sede">Sede:</label>
+        <input type="text" id="sede" name="sede" />
+
+        <label for="periodo">Periodo:</label>
+        <input type="text" id="periodo" name="periodo" />
+
+        <button type="button" id="btnGuardar">Guardar</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnGuardar").on("click", function () {
+                var formData = {
+                    tipoIngreso: $("#tipoIngreso").val(),
+                    tipoObra: $("#tipoObra").val(),
+                    programaIngreso: $("#programaIngreso").val(),
+                    sede: $("#sede").val(),
+                    periodo: $("#periodo").val()
+                };
+
+                $.ajax({
+                    url: "/Identidad/guardarFamilia",
+                    type: 'POST',
+                    data: formData,
+                    success: function (d) {
+                        alert('Información guardada correctamente.');
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Hubo un error al procesar tu petición.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

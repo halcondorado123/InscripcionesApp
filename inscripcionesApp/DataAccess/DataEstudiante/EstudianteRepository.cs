@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using inscripcionesApp.Models;
+using InscripcionesApp.Models;
 using System.Data.SqlClient;
 
 namespace InscripcionesApp.DataAccess.DataEstudiante
@@ -13,26 +14,52 @@ namespace InscripcionesApp.DataAccess.DataEstudiante
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public async Task<int> CrearDatosEstudios(ProgramaME programa)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
 
-                    string programaSql = "INSERT INTO Programas (Modalidad, Nivel_Ingreso, Sede, Periodo, Estado) VALUES (@Modalidad, @NivelIngreso, @Sede, @Periodo, @Estado); SELECT SCOPE_IDENTITY();";
-                    return await connection.ExecuteScalarAsync<int>(programaSql, programa);
-                }
-            }
-            catch (Exception ex)
+        public List<ProgramaME> ObtenerModalidades()
+        {
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                Console.WriteLine(ex.Message);
-                throw new Exception("Error al insertar el programa", ex);
+                string query = "SELECT DISTINCT Modalidad FROM Programas";
+                connection.Open();
+                var modalidades = connection.Query<string>(query).ToList();
+                return modalidades.Select(m => new ProgramaME { Modalidad = m }).ToList();
             }
         }
 
-        public async Task CrearInformacionEstudiante(EstudianteME estudiante, int programaId)
+
+        public List<NivelIngresoME> ObtenerNivelIngreso()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT DISTINCT Nivel_Ingreso FROM nivelIngreso";
+                connection.Open();
+                var modalidades = connection.Query<string>(query).ToList();
+                return modalidades.Select(m => new NivelIngresoME { Nivel_Ingreso = m }).ToList();
+            }
+        }
+
+
+        //public async Task<int> CrearDatosEstudios(ProgramaME programa)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection connection = new SqlConnection(_connectionString))
+        //        {
+        //            await connection.OpenAsync();
+
+        //            string programaSql = "INSERT INTO Programas (Modalidad, Nivel_Ingreso, Sede, Periodo, Estado) VALUES (@Modalidad, @NivelIngreso, @Sede, @Periodo, @Estado); SELECT SCOPE_IDENTITY();";
+        //            return await connection.ExecuteScalarAsync<int>(programaSql, programa);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        throw new Exception("Error al insertar el programa", ex);
+        //    }
+    //}
+
+    public async Task CrearInformacionEstudiante(EstudianteME estudiante, int programaId)
         {
             try
             {

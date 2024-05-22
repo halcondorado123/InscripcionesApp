@@ -5,10 +5,12 @@ namespace inscripcionesApp.Models
 {
     public class EstudianteME
     {
+
         public int Est_ID { get; set; }
         public int RolID { get; set; }
         public int Estatus_Est_ID { get; set; }
         public int Prog_ID { get; set; }
+        public int Id_Nivel_Ingreso { get; set; }
         public string? Est_PrimerNombre { get; set; }
         public string? Est_SegundoNombre { get; set; }
         public string? Est_PrimerApellido { get; set; }

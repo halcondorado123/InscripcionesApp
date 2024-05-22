@@ -2,7 +2,7 @@
 {
     public class EstatusEstudianteME
     {
-        public int Estatus_Est_ID { get; set; }
-        public string? Estatus_Estudiante { get; set; }
+        public int EstatusEstID { get; set; }
+        public string? EstatusEstudiante { get; set; }
     }
 }

@@ -20,24 +20,19 @@ namespace InscripcionesApp.Controllers
             return View("~/Views/Home/Registrate.cshtml");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CrearDatosEstudios([FromBody] ProgramaME programa, EstudianteME estudiante)
+        [HttpGet]
+        public IActionResult ObtenerModalidades(string modalidad)
         {
-            HttpContext.Session.SetObject("Estudiante", estudiante);
+            var modalidades = _estudianteRepository.ObtenerModalidades();
+            return Json(modalidades);
+        }
 
-            try
-            {
-                // Aquí deberías llamar al método para crear un nuevo estudiante en tu repositorio
-                await _estudianteRepository.CrearDatosEstudios(programa);
 
-                // Si el estudiante se crea correctamente, puedes devolver una respuesta 200 OK
-                return Ok("Estudiante creado correctamente");
-            }
-            catch (Exception ex)
-            {
-                // Si ocurre un error, devolver un código de estado 500 y el mensaje de error
-                return StatusCode(500, "Error al crear el estudiante: " + ex.Message);
-            }
+        [HttpGet]
+        public IActionResult ObtenerNivelIngreso(string nivelIngreso)
+        {
+            var nivel = _estudianteRepository.ObtenerNivelIngreso();
+            return Json(nivel);
         }
     }
         public static class SessionExtensions
