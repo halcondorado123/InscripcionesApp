@@ -1,60 +1,296 @@
-﻿@{
-    ViewData["Title"] = "Mi Página";
-}
+﻿<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewData["Title"]</title>
-</head>
-<body>
-    <h1>Bienvenido a mi página</h1>
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
 
-    <form id="miFormulario">
-        <label for="tipoIngreso">Tipo de Ingreso:</label>
-        <input type="text" id="tipoIngreso" name="tipoIngreso" />
 
-        <label for="tipoObra">Tipo de Obra:</label>
-        <input type="text" id="tipoObra" name="tipoObra" />
 
-        <label for="programaIngreso">Programa de Ingreso:</label>
-        <input type="text" id="programaIngreso" name="programaIngreso" />
+@* <div class="container" style="margin: 30px auto;">
+    <h2 class="text-center">Informacion del Estudiante</h2>
+    <p class="text-center" style="max-width: 1200px; margin: 0 auto;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo quod harum doloribus placeat quibusdam ad consectetur tenetur molestiae, corporis autem? Voluptatem, quibusdam quasi provident tempore alias neque officiis est aut!</p> *@
 
-        <label for="sede">Sede:</label>
-        <input type="text" id="sede" name="sede" />
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card" style="width: 100%; border-radius: 50px;">
+                    <div class="card-body bg-primary">
+                        <h5 class="card-title text-white">1. Información inscripción</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card" style="width: 100%; border-radius: 50px;">
+                    <div class="card-body bg-warning">
+                        <h5 class="card-title text-white">2. Información Personal</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card" style="width: 100%; border-radius: 50px;">
+                    <div class="card-body bg-secondary">
+                        <h5 class="card-title text-white">3. Confirme sus datos</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <label for="periodo">Periodo:</label>
-        <input type="text" id="periodo" name="periodo" />
 
-        <button type="button" id="btnGuardar">Guardar</button>
-    </form>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#btnGuardar").on("click", function () {
-                var formData = {
-                    tipoIngreso: $("#tipoIngreso").val(),
-                    tipoObra: $("#tipoObra").val(),
-                    programaIngreso: $("#programaIngreso").val(),
-                    sede: $("#sede").val(),
-                    periodo: $("#periodo").val()
-                };
 
-                $.ajax({
-                    url: "/Identidad/guardarFamilia",
-                    type: 'POST',
-                    data: formData,
-                    success: function (d) {
-                        alert('Información guardada correctamente.');
-                    },
-                    error: function (xhr, status, error) {
-                        alert('Hubo un error al procesar tu petición.');
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+
+@* </div> *@
+
+<div class="container d-flex align-items-center mt-3 mb-3">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <!-- Cambiado de col-md-8 a col-md-10 -->
+            <div class="card" style="border: 2px double #eeecec; border-radius: 50px; background:#eeeeee;">
+                <div class="card-body text-center">
+
+                    <div class="containerCard" style="margin: 30px auto;">
+                        <h2>Información personal</h2>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit et corrupti amet distinctio neque? Impedit, modi rem a unde deleniti excepturi quos non incidunt iusto! Perferendis deserunt sed cum earum.</p>
+                    </div>
+
+
+
+                    <form>
+                        <!-- INFORMACION DE NOMBRES -->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="primerNombre" style="margin: 12px auto;">Primer Nombre *:</label>
+                                    <input type="text" class="form-control" id="primerNombre" placeholder="Ingresa tu nombre" required>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="segundoNombre" style="margin: 12px auto">Segundo Nombre:</label>
+                                    <input type="text" class="form-control" id="segundoNombre" placeholder="Ingresa tu segundo nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="primerApellido" style="margin: 12px auto">Primer Apellido *:</label>
+                                    <input type="text" class="form-control" id="primerApellido" placeholder="Ingresa tu apellido">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="segundoApellido" style="margin: 12px auto">Segundo Apellido:</label>
+                                    <input type="text" class="form-control" id="segundoApellido" placeholder="Ingresa tu segundo apellido">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- INFORMACION DE NACIMIENTO -->
+                        <div class="row">
+                            <!-- Formulario de Fecha de Nacimiento -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fechaNacimiento" style="margin: 12px auto">Fecha de Nacimiento *:</label>
+                                    <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingresa tu fecha de nacimiento">
+                                </div>
+                            </div>
+                            <!-- Formulario de País de Nacimiento -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="paisNacimiento" style="margin: 12px auto">País de Nacimiento *:</label>
+                                    <select class="form-select form-select" id="paisNacimiento" required>
+                                        <option value="" selected>Seleccione el país de nacimiento</option>
+                                        <option value="Colombia">Colombia</option>
+                                        <option value="Estados Unidos">Estados Unidos</option>
+                                        <option value="Mexico">Mexico</option>
+                                        <option value="República Dominicana">República Dominicana</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Formulario de Departamento de Nacimiento -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="departamentoNacimiento" style="margin: 12px auto">Departamento o Estado *:</label>
+                                    <select class="form-select form-select" id="departamentoNacimiento" required>
+                                        <option value="" selected>Seleccione el departamento ó Estado</option>
+                                        <option value="departamento1">Departamento1</option>
+                                        <option value="departamento2">Departamento2</option>
+                                        <option value="departamento3">Departamento3</option>
+                                        <option value="departamento4">Departamento4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Formulario de Ciudad de Nacimiento -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ciudadNacimiento" style="margin: 12px auto">Ciudad *:</label>
+                                    <select class="form-select form-select" id="ciudadNacimiento" required>
+                                        <option value="" selected>Seleccione la ciudad de nacimiento</option>
+                                        <option value="ciudad1">Ciudad1</option>
+                                        <option value="ciudad2">Ciudad2</option>
+                                        <option value="ciudad3">Ciudad3</option>
+                                        <option value="ciudad4">Ciudad4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- INFORMACION DEL DOCUMENTO -->
+                        <div class="row">
+                            <!-- Grupo 1: Grupo Sanguíneo y Tipo de Documento -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="grupoSanguineo" style="margin: 12px auto">Grupo Sanguíneo - RH:</label>
+                                    <select class="form-select" id="grupoSanguineo" required>
+                                        <option value="" selected>Seleccione un valor</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tipoDocumento" style="margin: 12px auto">Tipo de Documento:</label>
+                                    <select class="form-select" id="tipoDocumento" required>
+                                        <option value="" selected>Seleccione tipo de documento</option>
+                                        <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+                                        <option value="Cédula de extranjería">Cédula de extranjería</option>
+                                        <option value="Pasaporte">Pasaporte</option>
+                                        <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Primer conjunto de formularios -->
+                            <div class="col-md-6">
+                                <!-- Grupo 2: Número de Documento -->
+                                <div class="form-group">
+                                    <label for="numeroDocumento" style="margin: 12px auto">Número de documento:</label>
+                                    <input type="number" class="form-control" id="numeroDocumento" placeholder="Ingrese su número de documento">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Grupo 2: Fecha de Expedición -->
+                                <div class="form-group">
+                                    <label for="fechaExpedicion" style="margin: 12px auto">Fecha de expedición:</label>
+                                    <input type="date" class="form-control" id="fechaExpedicion" placeholder="Ingrese la fecha de expedición">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Tercer conjunto de formularios -->
+                            <div class="col-md-4" style="margin: 12px auto">
+                                <!-- Formulario de País de Expedición -->
+                                <div class="form-group">
+                                    <label for="paisExpedicion" style="margin: 12px auto">País de expedición:</label>
+                                    <select class="form-select" id="paisExpedicion" required>
+                                        <option value="" selected>Seleccione el país de expedición</option>
+                                        <option value="Colombia">Colombia</option>
+                                        <option value="Estados Unidos">Estados Unidos</option>
+                                        <option value="Mexico">Mexico</option>
+                                        <option value="República Dominicana">República Dominicana</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Formulario de Departamento de Expedición -->
+                                <div class="form-group" style="margin: 12px auto">
+                                    <label for="departamentoExpedicion;" style="margin: 12px auto">Departamento o Estado *:</label>
+                                    <select class="form-select form-control" id="departamentoExpedicion" required>
+                                        <option value="" selected>Departamento ó Estado de expedición</option>
+                                        <option value="departamento1">Departamento1</option>
+                                        <option value="departamento2">Departamento2</option>
+                                        <option value="departamento3">Departamento3</option>
+                                        <option value="departamento4">Departamento4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Formulario de Ciudad de Expedición -->
+                                <div class="form-group" style="margin: 12px auto">
+                                    <label for="ciudadExpedicion" style="margin: 12px auto">Ciudad de expedición:</label>
+                                    <select class="form-select" id="ciudadExpedicion" required>
+                                        <option value="" selected>Seleccione la ciudad de expedición</option>
+                                        <option value="ciudad1">Ciudad1</option>
+                                        <option value="ciudad2">Ciudad2</option>
+                                        <option value="ciudad3">Ciudad3</option>
+                                        <option value="ciudad4">Ciudad4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sexo del estudiante -->
+                        <div>
+                            <label for="sexoEstudiante" style="margin: 12px auto">Sexo:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sexoEstudiante" id="masculino" value="masculino" checked>
+                                <label class="form-check-label" for="masculino">
+                                    Masculino
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sexoEstudiante" id="femenino" value="femenino">
+                                <label class="form-check-label" for="femenino">
+                                    Femenino
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Estado Civil -->
+                        <div>
+                            <label for="estadoCivil" style="margin: 12px auto">Estado civil:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estadoCivil" id="soltero" value="soltero" checked>
+                                <label class="form-check-label" for="soltero">
+                                    Soltero(a)
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estadoCivil" id="casado" value="casado">
+                                <label class="form-check-label" for="casado">
+                                    Casado(a)
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estadoCivil" id="unionLibre" value="unionLibre">
+                                <label class="form-check-label" for="unionLibre">
+                                    Unión libre
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estadoCivil" id="viudo" value="viudo">
+                                <label class="form-check-label" for="viudo">
+                                    Viudo(a)
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estadoCivil" id="separado" value="separado">
+                                <label class="form-check-label" for="separado">
+                                    Separado(a)
+                                </label>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a>
+                        @* <a href="@Url.Action("InformacionEstudiante", "Estudiante")" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a> *@
+                        <a href="#" class="btn bg-light text-dark btn-lg my-4">Cancelar</a>
+
+                    </form>
+                </div>
+            </div>

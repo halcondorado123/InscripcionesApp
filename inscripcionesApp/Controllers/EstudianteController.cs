@@ -20,6 +20,10 @@ namespace InscripcionesApp.Controllers
             return View("~/Views/Home/Registrate.cshtml");
         }
 
+        public IActionResult InformacionEstudiante()
+        {
+            return View("~/Views/Home/InformacionEstudiante.cshtml");
+        }
 
         [HttpGet]
         public IActionResult ObtenerTipoIngreso(string tipoIngreso)
