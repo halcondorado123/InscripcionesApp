@@ -8,7 +8,7 @@ namespace inscripcionesApp.Models
         public string? Prog_ID { get; set; }
         public string? NivelIngreso { get; set; }
         public string? Escuela { get; set; }
-        public string? NombrePrograma { get; set; }
+        public string? Nombre_Programa { get; set; }
         public string? Modalidad { get; set; }
         public string? Sede { get; set; }
         public string? Periodo { get; set; }

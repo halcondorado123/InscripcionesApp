@@ -3,7 +3,7 @@ using InscripcionesApp.DataAccess.DataEstudiante;
 using InscripcionesApp.DataAccess.DataFuncionario;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSession();
 // Agregar la configuración desde el archivo appsettings.json
 builder.Configuration.AddJsonFile("appsettings.json", optional: false);
 
@@ -19,13 +19,13 @@ builder.Services.AddScoped<IEstudianteRepository, EstudianteRepository>();
 // Agregar otros servicios necesarios
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSession(options =>
-{
-    options.Cookie.Name = ".YourApp.Session";
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Puedes ajustar el tiempo de expiración según tus necesidades
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true; // Hace que la sesión esté disponible durante la duración de la solicitud
-});
+//builder.Services.AddSession(options =>
+//{
+//    options.Cookie.Name = ".YourApp.Session";
+//    options.IdleTimeout = TimeSpan.FromMinutes(30); // Puedes ajustar el tiempo de expiración según tus necesidades
+//    options.Cookie.HttpOnly = true;
+//    options.Cookie.IsEssential = true; // Hace que la sesión esté disponible durante la duración de la solicitud
+//});
 
 var app = builder.Build();
 
@@ -38,10 +38,22 @@ if (!app.Environment.IsDevelopment())
 
 app.UseSession();
 
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    Secure = CookieSecurePolicy.Always,
+    MinimumSameSitePolicy = SameSiteMode.None
+});
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapControllerRoute(
     name: "default",

@@ -9,7 +9,7 @@ namespace InscripcionesApp.Controllers
     public class EstudianteController : Controller
     {
         private readonly IEstudianteRepository _estudianteRepository;
-
+        
         public EstudianteController(IEstudianteRepository estudianteRepository)
         {
             _estudianteRepository = estudianteRepository;
@@ -18,6 +18,14 @@ namespace InscripcionesApp.Controllers
         public IActionResult Registrate()
         {
             return View("~/Views/Home/Registrate.cshtml");
+        }
+
+
+        [HttpGet]
+        public IActionResult ObtenerTipoIngreso(string tipoIngreso)
+        {
+            var tipoIngresoResult = _estudianteRepository.ObtenerTipoIngreso(tipoIngreso);
+            return Json(tipoIngresoResult);
         }
 
         [HttpGet]
@@ -29,10 +37,38 @@ namespace InscripcionesApp.Controllers
 
 
         [HttpGet]
-        public IActionResult ObtenerNivelIngreso(string nivelIngreso)
+        public IActionResult ObtenerNivelIngreso()
         {
-            var nivel = _estudianteRepository.ObtenerNivelIngreso();
-            return Json(nivel);
+            var nivelesIngreso = _estudianteRepository.ObtenerNivelIngreso();
+            return Json(nivelesIngreso);
+        }
+
+        [HttpGet]
+        public IActionResult ObtenerProgramaInteres(string modalidad, string nivelIngreso)
+        {
+            var programasInteres = _estudianteRepository.ObtenerProgramaInteres(modalidad, nivelIngreso);
+            return Json(programasInteres);
+        }
+
+        [HttpGet]
+        public IActionResult ObtenerEscuelaPorPrograma(string modalidad, string nivelIngreso, string nombrePrograma)
+        {
+            var escuela = _estudianteRepository.ObtenerEscuelaPorPrograma(modalidad, nivelIngreso, nombrePrograma);
+            return Json(new { Escuela = escuela });
+        }
+
+        [HttpGet]
+        public IActionResult ObtenerPeriodo(string modalidad, string nivelIngreso, string nombrePrograma)
+        {
+            var periodo = _estudianteRepository.ObtenerPeriodoActivo(modalidad, nivelIngreso, nombrePrograma);
+            return Json(periodo);
+        }
+
+        [HttpGet]
+        public IActionResult ObtenerSedePrograma(string modalidad, string nivelIngreso, string nombrePrograma)
+        {
+            var sede = _estudianteRepository.ObtenerSede(modalidad, nivelIngreso, nombrePrograma);
+            return Json(sede);
         }
     }
         public static class SessionExtensions

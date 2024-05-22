@@ -2,7 +2,7 @@
 {
     public class IngresosME
     {
-        public int? IdIngreso { get; set; }
-        public string? TipoIngreso { get; set; }
+        public int? ID_Ingreso { get; set; }
+        public string? Tipo_Ingreso { get; set; }
     }
 }

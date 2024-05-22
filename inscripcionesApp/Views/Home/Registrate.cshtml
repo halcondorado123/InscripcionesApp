@@ -51,11 +51,11 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="nuevoIngreso" value="nuevo" required>
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="nuevoIngreso" value="Nuevo Ingreso" required>
                                             <label class="form-check-label" for="nuevoIngreso">Nuevo Ingreso</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="reingreso" value="reingreso" required>
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="reingreso" value="Reingreso" required>
                                             <label class="form-check-label" for="reingreso">Reingreso</label>
                                         </div>
                                     </div>
@@ -63,11 +63,11 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="transferenciaInterna" value="interna" required>
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="transferenciaInterna" value="Transferencia Interna" required>
                                             <label class="form-check-label" for="transferenciaInterna">Transferencia Interna</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="transferenciaExterna" value="externa" required>
+                                            <input class="form-check-input" type="radio" name="tipoIngreso" id="transferenciaExterna" value="Transferencia Externa" required>
                                             <label class="form-check-label" for="transferenciaExterna">Transferencia Externa</label>
                                         </div>
                                     </div>
@@ -77,29 +77,28 @@
                             <!-- Modalidad y Nivel de Ingreso -->
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-3">
-                                    <select class="form-select form-select-sm" id="modalidad" name="ModalidadId" required>
+                                    <select class="form-select form-select-sm" id="modalidad" name="ModalidadId" required disabled>
+                                        <option value="" selected>Seleccione la modalidad</option>
                                     </select>
                                     <label for="modalidad">Modalidad:</label>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <select class="form-select form-select-sm" id="nivelIngreso" required>
+                                    <select class="form-select form-select-sm" id="nivelIngreso" name="NivelIngreso" required disabled>
+                                        <option value="" selected> Seleccione el nivel de ingreso</option>
                                     </select>
-                                    <label for="programaIngreso">Nivel ingreso:</label>
+                                    <label for="nivelIngreso">Nivel ingreso:</label>
                                 </div>
                             </div>
 
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-3">
-                                    <select class="form-select form-select-sm" id="programaInteres" name="programaInteres" required>
+                                    <select class="form-select form-select-sm" id="programaInteres" name="Programa" required disabled>
                                         <option value="" selected>Seleccione el programa de interes</option>
                                     </select>
-                                    <label for="modalidad">Programa de interés:</label>
+                                    <label for="programaInteres">Programa de interés:</label>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <select class="form-select form-select-sm" id="Escuela" name="escuela" required>
-                                        <option value="" selected>Seleccione la modalidad</option>
-                                    </select>
-                                    <label for="modalidad">Modalidad:</label>
+                                    <input type="text" class="form-control" id="escuela" name="NombreEscuela" disabled>
                                 </div>
                             </div>
 
@@ -107,23 +106,16 @@
                             <!-- Sede y Periodo -->
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-3">
-                                    <select class="form-select form-select-sm" id="sede" required disabled>
-                                        <option selected disabled>Seleccione una sede</option>
-                                        <option value="Bogota">Bogotá</option>
-                                        <option value="Cali">Cali</option>
-                                        <option value="Medellin">Medellín</option>
-                                        <option value="Villavicencio">Villavicencio</option>
-                                        <option value="Cartagena">Cartagena</option>
-                                    </select>
-                                    <label for="sede">Sede:</label>
-                                </div>
-                                <div class="col-md-6 mb-3">
                                     <select class="form-select form-select-sm" id="periodo" required disabled>
-                                        <option selected disabled>Seleccione el período</option>
-                                        <option value="20242P">20242P</option>
-                                        <option value="20242V">20242V</option>
+                                        <option selected>Seleccione el período</option>
                                     </select>
                                     <label for="periodo">Período:</label>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <select class="form-select form-select-sm" id="sede" required disabled>
+                                        <option selected>Seleccione una sede</option>
+                                    </select>
+                                    <label for="sede">Sede:</label>
                                 </div>
                             </div>
                         </div>
@@ -149,9 +141,36 @@
     <script>
 
         $(document).ready(function () {
-            obtenerModalidad()
+            obtenerTipoIngreso()
         })
 
+
+        function obtenerTipoIngreso() {
+            $("input[name='tipoIngreso']").change(function () {
+                // Obtener el valor del tipo de ingreso seleccionado
+                var tipoIngresoSeleccionado = $(this).val();
+
+                // Realizar una solicitud AJAX al servidor
+                $.ajax({
+                    url: "@Url.Action("ObtenerTipoIngreso", "Estudiante")",
+                    type: 'GET', // O 'POST' dependiendo del método del controlador
+                    dataType: 'json', // Especificar el tipo de datos esperado en la respuesta
+                    data: {
+                        tipoIngreso: tipoIngresoSeleccionado // Enviar el tipo de ingreso seleccionado al servidor
+                    },
+                    success: function (response) {
+                        // Manejar la respuesta recibida del servidor
+                        console.log('Respuesta del servidor:', response);
+                        $("#modalidad").prop("disabled", false);
+                        // Aquí puedes realizar acciones adicionales basadas en la respuesta recibida
+                    },
+                    error: function (xhr, status, error) {
+                        // Manejar el error en caso de que ocurra
+                        console.error('Error al realizar la solicitud AJAX:', error);
+                    }
+                });
+            });
+        }
 
         function obtenerModalidad() {
             $.ajax({
@@ -164,9 +183,9 @@
                 success: function (response) {
                     console.log(response)
 
-                    $("#modalidad").append(
-                        $("<option>").attr({ "value": "" }).text("Seleccione la modalidad")
-                    )
+                    // $("#modalidad").append(
+                    //     $("<option>").attr({ "value": "" }).text("Seleccione la modalidad")
+                    // )
 
                     $.each(response, function (i, elemento) {
                         $("#modalidad").append(
@@ -177,34 +196,225 @@
             })
         }
 
+        // Llama a la función cuando se seleccione una opción de modalidad (si es necesario)
+        $("input[name='tipoIngreso']").change(function () {
+            obtenerModalidad();
+        });
 
-
-        function obtenernivelIngreso() {
-            var _modalidad = $("modalidad option:select").val();
+        function obtenerNivelIngreso() {
             $.ajax({
-                url: "/Estudiante/ObtenerNivelIngreso",
+                url: "@Url.Action("ObtenerNivelIngreso", "Estudiante")",
                 type: "GET",
                 dataType: "json",
                 data: {
-                    modalidad: _modalidad,
-                    nivelIngreso: "nivelIngreso"
+                    Nivel_Ingreso: "nivelIngreso"
                 },
                 success: function (response) {
-                    console.log(response)
-
+                    console.log("Respuesta del servidor:", response); // Para verificar la respuesta en la consola
+                    $("#nivelIngreso").prop("disabled", false);
                     var select = $("#nivelIngreso");
                     select.empty(); // Limpiar el dropdown
+
 
                     $("#nivelIngreso").append(
                         $("<option>").attr({ "value": "" }).text("Seleccione el nivel de ingreso")
                     )
 
                     $.each(response, function (i, elemento) {
-                        select.append($("<option>").attr({ "value": elemento.nivelIngreso }).text(elemento.nivelIngreso));
+                        $("#nivelIngreso").append(
+                            $("<option>").attr({ "value": elemento.nivel_Ingreso }).text(elemento.nivel_Ingreso)
+                        )
+                    })
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error al obtener los niveles de ingreso:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un problema al obtener los niveles de ingreso. Por favor, intenta nuevamente.'
                     });
                 }
-            })
+            });
         }
+
+        // Llama a la función cuando se seleccione una opción de modalidad (si es necesario)
+        $("#modalidad").change(function () {
+            obtenerNivelIngreso();
+        });
+
+        function obtenerProgramaInteres() {
+            // Obtén los valores de modalidad y nivelIngreso
+            var _modalidad = $("#modalidad").val();
+            var _nivelIngreso = $("#nivelIngreso").val();
+
+
+            $.ajax({
+                url: "@Url.Action("ObtenerProgramaInteres", "Estudiante")",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    modalidad: _modalidad,
+                    nivelIngreso: _nivelIngreso
+                },
+                success: function (response) {
+                    console.log("Respuesta del servidor:", response); // Verifica la respuesta en la consola
+                    $("#programaInteres").prop("disabled", false);
+                    var select = $("#programaInteres");
+                    select.empty(); // Limpiar el dropdown
+
+                    $("#programaInteres").append(
+                        $("<option>").attr({ "value": "" }).text("Seleccione el programa de su interes")
+                    )
+
+                    $.each(response, function (i, elemento) {
+                        $("#programaInteres").append(
+                            $("<option>").attr({ "value": elemento.nombre_Programa }).text(elemento.nombre_Programa)
+                        )
+                    })
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error al obtener los niveles de ingreso:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un problema al obtener los niveles de ingreso. Por favor, intenta nuevamente.'
+                    });
+                }
+            });
+        }
+
+        // Llama a la función cuando se seleccione una opción de modalidad
+        $("#modalidad, #nivelIngreso").change(function () {
+            obtenerProgramaInteres();
+        });
+
+        function obtenerPeriodo() {
+            // Obtén los valores de modalidad y nivelIngreso
+            var _modalidad = $("#modalidad").val();
+            var _nivelIngreso = $("#nivelIngreso").val();
+            var _programaInteres = $("#programaInteres").val();
+
+
+            $.ajax({
+                url: "@Url.Action("ObtenerPeriodo", "Estudiante")",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    modalidad: _modalidad,
+                    nivelIngreso: _nivelIngreso,
+                    nombrePrograma: _programaInteres,
+                },
+                success: function (response) {
+                    console.log("Respuesta del servidor:", response); // Verifica la respuesta en la consola
+                    $("#periodo").prop("disabled", false);
+                    var select = $("#periodo");
+                    select.empty(); // Limpiar el dropdown
+
+                    $("#periodo").append(
+                        $("<option>").attr({ "value": "" }).text("Seleccione el periodo del programa")
+                    )
+
+                    $.each(response, function (i, elemento) {
+                        $("#periodo").append(
+                            $("<option>").attr({ "value": elemento.periodo }).text(elemento.periodo)
+                        )
+                    })
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error al obtener los niveles de ingreso:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un problema al obtener los niveles de ingreso. Por favor, intenta nuevamente.'
+                    });
+                }
+            });
+        }
+
+        // Llama a la función cuando se seleccione una opción de modalidad
+        $("#modalidad, #nivelIngreso, #programaInteres").change(function () {
+            obtenerPeriodo();
+        });
+
+        function obtenerEscuela() {
+            $('#programaInteres').change(function () {
+                // Obtener el valor seleccionado del programa de interés
+                var _modalidad = $("#modalidad").val();
+                var _nivelIngreso = $("#nivelIngreso").val();
+                var programaSeleccionado = $(this).val();
+
+                // Realizar una solicitud AJAX al servidor para obtener la escuela correspondiente al programa seleccionado
+                $.ajax({
+                    url: '@Url.Action("ObtenerEscuelaPorPrograma", "Estudiante")',
+                    type: 'GET',
+                    data: {
+                        modalidad: _modalidad,
+                        nivelIngreso: _nivelIngreso,
+                        nombrePrograma: programaSeleccionado
+                    },
+                    success: function (response) {
+                        // Actualizar el valor del textbox de la escuela con el valor recibido
+                        $('#escuela').val(response.escuela);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error al obtener la escuela:', error);
+                    }
+                });
+            });
+        }
+
+        $("#modalidad, #nivelIngreso, #programaInteres").change(function () {
+            obtenerEscuela();
+        });
+
+
+        function obtenerSede() {
+            // Obtener los valores seleccionados de los elementos
+            var _modalidad = $("#modalidad").val();
+            var _nivelIngreso = $("#nivelIngreso").val();
+            var _programaInteres = $("#programaInteres").val();
+            var _periodo = $("#periodo").val();
+
+            // Realizar una solicitud AJAX al servidor
+            $.ajax({
+                url: '@Url.Action("ObtenerSedePrograma", "Estudiante")',
+                type: 'GET',
+                data: {
+                    modalidad: _modalidad,
+                    nivelIngreso: _nivelIngreso,
+                    nombrePrograma: _programaInteres,
+                    periodo: _periodo
+                },
+                success: function (response) {
+                    // Limpiar el dropdown de sedes
+                    $("#sede").prop("disabled", false);
+                    var select = $("#sede");
+                    select.empty();
+
+                    // Agregar la opción predeterminada
+                    select.append(
+                        $("<option>").attr("value", "").text("Seleccione la sede del programa")
+                    );
+
+                    // Agregar las opciones de sedes basadas en la respuesta recibida
+                    $.each(response, function (i, elemento) {
+                        select.append(
+                            $("<option>").attr("value", elemento.sede).text(elemento.sede)
+                        );
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error al obtener la sede:', error);
+                }
+            });
+        }
+
+        // Llamar a la función obtenerSede() cuando cambie algún valor en los elementos modalidad, nivelIngreso, programaInteres o periodo
+        $("#modalidad, #nivelIngreso, #programaInteres, #periodo").change(function () {
+            obtenerSede();
+        });
 
     </script>
 }

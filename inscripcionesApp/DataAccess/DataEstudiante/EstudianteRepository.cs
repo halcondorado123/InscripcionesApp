@@ -2,6 +2,7 @@
 using inscripcionesApp.Models;
 using InscripcionesApp.Models;
 using System.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InscripcionesApp.DataAccess.DataEstudiante
 {
@@ -14,10 +15,30 @@ namespace InscripcionesApp.DataAccess.DataEstudiante
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
+        public IngresosME ObtenerTipoIngreso(string tipoIngreso)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var parameters = new { TipoIngreso = tipoIngreso };
+
+                // La consulta ahora también selecciona el ID_Ingreso para el mapeo correcto del modelo
+                string query = "SELECT ID_Ingreso, Tipo_Ingreso FROM Ingresos WHERE Tipo_Ingreso = @TipoIngreso";
+                connection.Open();
+
+                var ingreso = connection.QueryFirstOrDefault<IngresosME>(query, parameters);
+
+                if (ingreso == null)
+                {
+                    // Log o manejar el caso donde no se encuentra ningún ingreso
+                    Console.WriteLine($"No se encontró ningún ingreso con Tipo_Ingreso = {tipoIngreso}");
+                }
+
+                return ingreso;
+            }
+        }
 
         public List<ProgramaME> ObtenerModalidades()
         {
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT DISTINCT Modalidad FROM Programas";
@@ -34,11 +55,125 @@ namespace InscripcionesApp.DataAccess.DataEstudiante
             {
                 string query = "SELECT DISTINCT Nivel_Ingreso FROM nivelIngreso";
                 connection.Open();
-                var modalidades = connection.Query<string>(query).ToList();
-                return modalidades.Select(m => new NivelIngresoME { Nivel_Ingreso = m }).ToList();
+                var nivelIngreso = connection.Query<string>(query).ToList();
+                return nivelIngreso.Select(m => new NivelIngresoME { Nivel_Ingreso = m }).ToList();
+            }
+        }
+        public List<ProgramaME> ObtenerProgramaInteres(string modalidad, string nivelIngreso)
+        {
+
+            var nuevoNivelIngreso = AjustarNivelIngreso(nivelIngreso);
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT Escuela, Nombre_Programa, Modalidad, Nivel_Ingreso, Sede " +
+                               "FROM Programas " +
+                               "WHERE Modalidad = @Modalidad AND Nivel_Ingreso = @NivelIngreso";
+
+                // Define el valor de nivelIngreso basado en la lógica de la modalidad solo si no está vacío
+                
+
+                var parameters = new { Modalidad = modalidad, NivelIngreso = nuevoNivelIngreso };
+
+                connection.Open();
+
+                var programas = connection.Query<ProgramaME>(query, parameters).ToList();
+
+                return programas;
             }
         }
 
+        private string AjustarNivelIngreso(string nivelIngreso)
+        {
+            if (nivelIngreso == "Bachillerato")
+            {
+                return "Técnico";
+            }
+            else if (nivelIngreso == "Técnico")
+            {
+                return "Tecnólogo";
+            }
+            else if (nivelIngreso == "Tecnólogo")
+            {
+                return "Profesional";
+            }
+            else
+            {
+                return nivelIngreso; // Mantener el mismo nivel de ingreso si es Profesional
+            }
+        }
+
+        public string ObtenerEscuelaPorPrograma(string modalidad, string nivelIngreso, string nombrePrograma)
+        {
+            var nuevoNivelIngreso = AjustarNivelIngreso(nivelIngreso);
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT DISTINCT Escuela " +
+                               "FROM Programas " +
+                               "WHERE Modalidad = @Modalidad " +
+                               "AND Nivel_Ingreso = @NivelIngreso " +
+                               "AND Nombre_Programa = @NombrePrograma";
+
+                var parameters = new { Modalidad = modalidad, NivelIngreso = nuevoNivelIngreso, NombrePrograma = nombrePrograma };
+
+                connection.Open();
+
+                var escuela = connection.QueryFirstOrDefault<string>(query, parameters);
+
+                return escuela;
+            }
+        }
+
+        public List<ProgramaME> ObtenerSede(string modalidad, string nivelIngreso, string nombrePrograma)
+        {
+            var nuevoNivelIngreso = AjustarNivelIngreso(nivelIngreso);
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT DISTINCT Sede " +
+                                "FROM Programas " +
+                                "WHERE MODALIDAD = @Modalidad " +
+                                "AND Nivel_Ingreso = @NivelIngreso " +
+                                "AND Nombre_Programa = @NombrePrograma";
+
+                // Define el valor de nivelIngreso basado en la lógica de la modalidad solo si no está vacío
+
+
+                var parameters = new { Modalidad = modalidad, NivelIngreso = nuevoNivelIngreso, NombrePrograma = nombrePrograma };
+
+                connection.Open();
+
+                var sedes = connection.Query<ProgramaME>(query, parameters).ToList();
+
+                return sedes;
+            }
+        }
+
+        public List<ProgramaME> ObtenerPeriodoActivo(string modalidad, string nivelIngreso, string nombrePrograma)
+        {
+            var nuevoNivelIngreso = AjustarNivelIngreso(nivelIngreso);
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * " +
+                                "FROM Programas " +
+                                "WHERE MODALIDAD = @Modalidad " +
+                                "AND Nivel_Ingreso = @NivelIngreso " +
+                                "AND Nombre_Programa = @NombrePrograma";
+
+                // Define el valor de nivelIngreso basado en la lógica de la modalidad solo si no está vacío
+
+
+                var parameters = new { Modalidad = modalidad, NivelIngreso = nuevoNivelIngreso, NombrePrograma = nombrePrograma };
+
+                connection.Open();
+
+                var programas = connection.Query<ProgramaME>(query, parameters).ToList();
+
+                return programas;
+            }
+        }
 
         //public async Task<int> CrearDatosEstudios(ProgramaME programa)
         //{
@@ -57,9 +192,9 @@ namespace InscripcionesApp.DataAccess.DataEstudiante
         //        Console.WriteLine(ex.Message);
         //        throw new Exception("Error al insertar el programa", ex);
         //    }
-    //}
+        //}
 
-    public async Task CrearInformacionEstudiante(EstudianteME estudiante, int programaId)
+        public async Task CrearInformacionEstudiante(EstudianteME estudiante, int programaId)
         {
             try
             {
