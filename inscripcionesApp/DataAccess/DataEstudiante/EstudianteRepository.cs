@@ -175,26 +175,29 @@ namespace InscripcionesApp.DataAccess.DataEstudiante
             }
         }
 
-        //public async Task<int> CrearDatosEstudios(ProgramaME programa)
-        //{
-        //    try
-        //    {
-        //        using (SqlConnection connection = new SqlConnection(_connectionString))
-        //        {
-        //            await connection.OpenAsync();
+        public async Task<EstudianteInscripcionME> CrearDatosEstudios(string tipoIngreso, string modalidad, string nivelIngreso, string programaInteres, string escuela, string periodo, string sede)
+        {
 
-        //            string programaSql = "INSERT INTO Programas (Modalidad, Nivel_Ingreso, Sede, Periodo, Estado) VALUES (@Modalidad, @NivelIngreso, @Sede, @Periodo, @Estado); SELECT SCOPE_IDENTITY();";
-        //            return await connection.ExecuteScalarAsync<int>(programaSql, programa);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        throw new Exception("Error al insertar el programa", ex);
-        //    }
-        //}
+            try
+            {
+                var parameters = new { TipoIngreso = tipoIngreso, Modalidad = modalidad, NivelIngreso = nivelIngreso, ProgramaInteres = programaInteres, Escuela = escuela, Periodo = periodo, Sede = sede };
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
 
-        public async Task CrearInformacionEstudiante(EstudianteME estudiante, int programaId)
+                    string programaSql = "INSERT INTO Est_inscripcion (TipoIngreso, Modalidad, NivelIngreso, ProgramaInteres, Escuela, Periodo, Sede) " +
+                        "VALUES (@TipoIngreso, @Modalidad, @NivelIngreso, @ProgramaInteres, @Escuela, @Periodo, @Sede)";
+                    return await connection.ExecuteScalarAsync<EstudianteInscripcionME>(programaSql, parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("Error al insertar el programa", ex);
+            }
+        }
+
+        public async Task<List<SexoEstudianteME>> ObtenerSexoEstudiante()
         {
             try
             {
@@ -202,41 +205,70 @@ namespace InscripcionesApp.DataAccess.DataEstudiante
                 {
                     await connection.OpenAsync();
 
-                    string estudianteSql = "INSERT INTO Estudiante (RolID, Estatus_Est_ID, Prog_ID, Est_PrimerNombre, Est_SegundoNombre, Est_PrimerApellido, Est_SegundoApellido, Est_FechaNacimiento," +
-                        " Est_PaisNacimiento, Est_DepartamentoNacimiento, Est_CiudadNacimiento, Est_Direccion, Est_GrupoSanguineo, Est_TipoDocumento, Est_NumeroDocumento, Est_FechaExpedicionDoc," +
-                        " Est_PaisExpedicion, Est_DepartamentoExpedicion, Est_CiudadExpedicion, Est_Sexo, Est_EstadoCivil, Est_TelefonoPrincipal, Est_TelefonoSecundario, Est_CorreoElectronico," +
-                        " Est_FechaInscripcion)" +
-                        " VALUES (@RolID, @Estatus_Est_ID, @Prog_ID, @Est_PrimerNombre, @Est_SegundoNombre, @Est_PrimerApellido, @Est_SegundoApellido, @Est_FechaNacimiento," +
-                        " @Est_PaisNacimiento, @Est_DepartamentoNacimiento, @Est_CiudadNacimiento, @Est_Direccion, @Est_GrupoSanguineo, @Est_TipoDocumento, @Est_NumeroDocumento," +
-                        " @Est_FechaExpedicionDoc, @Est_PaisExpedicion, @Est_DepartamentoExpedicion, @Est_CiudadExpedicion, @Est_Sexo, @Est_EstadoCivil, @Est_TelefonoPrincipal," +
-                        " @Est_TelefonoSecundario, @Est_CorreoElectronico, @Est_FechaInscripcion)";
-                    await connection.ExecuteAsync(estudianteSql, new
+                    string programaSql = "SELECT Sexo_est FROM SexoEstudiante";
+                    var result = await connection.QueryAsync<SexoEstudianteME>(programaSql);
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("Error al obtener el sexo del estudiante", ex);
+            }
+        }
+
+
+        public async Task CrearInformacionEstudiante(string primerNombre, string segundoNombre, string primerApellido, string segundoApellido, string fechaNacimiento,
+                                                   string paisNacimiento, string departamentoNacimiento, string ciudadNacimiento, string direccion, string grupoSanguineo, string tipoDocumento, 
+                                                   string numeroDocumento, string fechaExpedicion, string paisExpedicion, string departamentoExpedicion, string ciudadExpedicion,
+                                                   string telefonoPrincipal, string telefonoSecundario, string correo, string sexoEstudiante, string estadoCivil)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    string estudianteSql = @"INSERT INTO Estudiante (RolID, Estatus_Est_ID, Prog_ID, Est_PrimerNombre, Est_SegundoNombre, Est_PrimerApellido,
+                                            Est_SegundoApellido, Est_FechaNacimiento, Est_PaisNacimiento, Est_DepartamentoNacimiento, Est_CiudadNacimiento, 
+                                            Est_Direccion, Est_GrupoSanguineo, Est_TipoDocumento, Est_NumeroDocumento, Est_FechaExpedicionDoc, Est_PaisExpedicion,
+                                            Est_DepartamentoExpedicion, Est_CiudadExpedicion, Est_Sexo, Est_EstadoCivil, Est_TelefonoPrincipal, 
+                                            Est_TelefonoSecundario, Est_CorreoElectronico, Est_FechaInscripcion)
+                                                VALUES (@RolID, @Estatus_Est_ID, @Prog_ID, @Est_PrimerNombre, @Est_SegundoNombre, @Est_PrimerApellido, @Est_SegundoApellido, @Est_FechaNacimiento,
+                                                    @Est_PaisNacimiento, @Est_DepartamentoNacimiento, @Est_CiudadNacimiento, @Est_Direccion, @Est_GrupoSanguineo, @Est_TipoDocumento, @Est_NumeroDocumento,
+                                                    @Est_FechaExpedicionDoc, @Est_PaisExpedicion, @Est_DepartamentoExpedicion, @Est_CiudadExpedicion, @Est_Sexo, @Est_EstadoCivil, @Est_TelefonoPrincipal,
+                                                    @Est_TelefonoSecundario, @Est_CorreoElectronico, @Est_FechaInscripcion)";
+
+                    var estudiante = new
                     {
                         RolID = 2, // Suponiendo que el RolID es fijo para los estudiantes
-                        Estatus_Est_ID = estudiante.Estatus_Est_ID,
-                        estudiante.Est_PrimerNombre,
-                        estudiante.Est_SegundoNombre,
-                        estudiante.Est_PrimerApellido,
-                        estudiante.Est_SegundoApellido,
-                        estudiante.Est_FechaNacimiento,
-                        estudiante.Est_PaisNacimiento,
-                        estudiante.Est_DepartamentoNacimiento,
-                        estudiante.Est_CiudadNacimiento,
-                        estudiante.Est_Direccion,
-                        estudiante.Est_GrupoSanguineo,
-                        estudiante.Est_TipoDocumento,
-                        estudiante.Est_NumeroDocumento,
-                        estudiante.Est_FechaExpedicionDoc,
-                        estudiante.Est_PaisExpedicion,
-                        estudiante.Est_DepartamentoExpedicion,
-                        estudiante.Est_CiudadExpedicion,
-                        estudiante.Est_Sexo,
-                        estudiante.Est_EstadoCivil,
-                        estudiante.Est_TelefonoPrincipal,
-                        estudiante.Est_TelefonoSecundario,
-                        estudiante.Est_CorreoElectronico,
-                        estudiante.Est_FechaInscripcion
-                    });
+                        Estatus_Est_ID = 1, // Ajusta esto según corresponda
+                        Prog_ID = 1, // Ajusta esto según corresponda
+                        Est_PrimerNombre = primerNombre,
+                        Est_SegundoNombre = segundoNombre,
+                        Est_PrimerApellido = primerApellido,
+                        Est_SegundoApellido = segundoApellido,
+                        Est_FechaNacimiento = fechaNacimiento,
+                        Est_PaisNacimiento = paisNacimiento,
+                        Est_DepartamentoNacimiento = departamentoNacimiento,
+                        Est_CiudadNacimiento = ciudadNacimiento,
+                        Est_Direccion = direccion,
+                        Est_GrupoSanguineo = grupoSanguineo,
+                        Est_TipoDocumento = tipoDocumento,
+                        Est_NumeroDocumento = numeroDocumento,
+                        Est_FechaExpedicionDoc = fechaExpedicion,
+                        Est_PaisExpedicion = paisExpedicion,
+                        Est_DepartamentoExpedicion = departamentoExpedicion,
+                        Est_CiudadExpedicion = ciudadExpedicion,
+                        Est_Sexo = sexoEstudiante,
+                        Est_EstadoCivil = estadoCivil,
+                        Est_TelefonoPrincipal = telefonoPrincipal,
+                        Est_TelefonoSecundario = telefonoSecundario,
+                        Est_CorreoElectronico = correo,
+                        Est_FechaInscripcion = DateTime.Now // Suponiendo que la fecha de inscripción es la fecha actual
+                    };
+
+                    await connection.ExecuteAsync(estudianteSql, estudiante);
                 }
             }
             catch (Exception ex)

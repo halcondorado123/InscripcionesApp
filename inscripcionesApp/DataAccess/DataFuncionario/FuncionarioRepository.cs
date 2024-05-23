@@ -98,6 +98,8 @@ namespace InscripcionesApp.DataAccess.DataFuncionario
             return estudiante;
         }
 
+
+        // ACTUALIZAR MODELO
         public async Task CrearEstudiante(EstudianteME estudiante, ProgramaME programa)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -189,7 +191,7 @@ namespace InscripcionesApp.DataAccess.DataFuncionario
         //    }
         //}
 
-
+        // ACTUALIZAR MODELO
         public async Task ActualizarEstudiante(int id, EstudianteME estudiante)
         {
             try

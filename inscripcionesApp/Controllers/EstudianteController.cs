@@ -74,6 +74,50 @@ namespace InscripcionesApp.Controllers
             var sede = _estudianteRepository.ObtenerSede(modalidad, nivelIngreso, nombrePrograma);
             return Json(sede);
         }
+
+        // Información academica del aspirante
+        [HttpPost]
+        public IActionResult GuardarPrimerFormulario(string tipoIngreso, string modalidad, string nivelIngreso, string programaInteres, string escuela, string periodo, string sede)
+        {
+            var resultado = _estudianteRepository.CrearDatosEstudios(tipoIngreso, modalidad, nivelIngreso, programaInteres, escuela, periodo, sede);
+            if (resultado != null)
+            {
+                return Json(new { success = true, message = "Datos guardados exitosamente" });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Error al guardar los datos" });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ObtenerSexoEstudiante()
+        {
+            var sexo = _estudianteRepository.ObtenerSexoEstudiante();
+            return Json(sexo);
+        }
+
+        //Información academica del aspirante
+        [HttpPost]
+        public IActionResult GuardarSegundoFormulario(string primerNombre, string segundoNombre, string primerApellido, string segundoApellido, string fechaNacimiento,
+           string paisNacimiento, string departamentoNacimiento, string ciudadNacimiento, string direccion, string grupoSanguineo, string tipoDocumento, string numeroDocumento, 
+           string fechaExpedicion, string paisExpedicion, string departamentoExpedicion, string ciudadExpedicion, string telefonoPrincipal, string telefonoSecundario,
+           string correo, string sexoEstudiante, string estadoCivil)
+        {
+            var resultado = _estudianteRepository.CrearInformacionEstudiante(primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, paisNacimiento, 
+                             departamentoNacimiento, ciudadNacimiento, direccion, grupoSanguineo, tipoDocumento, numeroDocumento, fechaExpedicion, paisExpedicion, departamentoExpedicion, 
+                             ciudadExpedicion, telefonoPrincipal, telefonoSecundario, correo, sexoEstudiante, estadoCivil);
+            if (resultado != null)
+            {
+                return Json(new { success = true, message = "Datos guardados exitosamente" });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Error al guardar los datos" });
+            }
+        }
+
+
     }
         public static class SessionExtensions
         {

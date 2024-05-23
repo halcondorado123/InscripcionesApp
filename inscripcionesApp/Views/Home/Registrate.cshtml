@@ -44,7 +44,7 @@
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit et corrupti amet distinctio neque? Impedit, modi rem a unde deleniti excepturi quos non incidunt iusto! Perferendis deserunt sed cum earum.</p>
                     </div>
 
-                    <form>
+                    <form id="registroEstudio" name="formularioA">
                         <div class="container mt-3">
                             <div class="row" style="border: 1px solid #c7c6c6; border-radius: 10px; padding: 10px 120px;">
                                 <div class="col-md-6">
@@ -117,13 +117,14 @@
                                     <label for="sede">Sede:</label>
                                 </div>
                             </div>
+                            <a href="javascript:void(0);" class="btn bg-info btn-lg my-4" onclick="enviarFormulario()"><b>Continuar</b></a>
+@*                             <button type="submit" class="btn bg-info btn-lg my-4"><b>Continuar</b></button> *@
+                            <a id="cancelar-btn" class="btn bg-light text-dark btn-lg my-4">Cancelar</a>
                         </div>
+
                     </form>
 
-                    <div id="divLoading"></div>
 
-                    <a href="@Url.Action("InformacionEstudiante", "Estudiante")" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a>
-                    <a id="cancelar-btn" class="btn bg-light text-dark btn-lg my-4">Cancelar</a>
                 </div>
             </div>
         </div>
@@ -138,7 +139,6 @@
 @section Scripts
 {
     <script>
-
         $(document).ready(function () {
             obtenerTipoIngreso()
         })
@@ -410,10 +410,60 @@
             });
         }
 
+        // data: {
+        //     tipoIngreso: _tipoIngreso,
+        //     modalidad: _modalidad,
+        //     nivelIngreso: _nivelIngreso,
+        //     programaInteres: _programaInteres,
+        //     escuela: _escuela,
+        //     periodo: _periodo,
+        //     sede : _sede
+        // },
+
         // Llamar a la función obtenerSede() cuando cambie algún valor en los elementos modalidad, nivelIngreso, programaInteres o periodo
         $("#modalidad, #nivelIngreso, #programaInteres, #periodo").change(function () {
             obtenerSede();
         });
+
+        function enviarFormulario() {
+            var formData = new FormData();
+            formData.append('tipoIngreso', $("input[name='tipoIngreso']").val());
+            formData.append('modalidad', $("#modalidad").val());
+            formData.append('nivelIngreso', $("#nivelIngreso").val());
+            formData.append('programaInteres', $("#programaInteres").val());
+            formData.append('escuela', $("#escuela").val());
+            formData.append('periodo', $("#periodo").val());
+            formData.append('sede', $("#sede").val());
+
+            $.ajax({
+                url: "@Url.Action("GuardarPrimerFormulario", "Estudiante")",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log("Respuesta del servidor:", response);
+                    Swal.fire({
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar',
+                    }).then(() => {
+                        window.location.href = "@Url.Action("InformacionEstudiante", "Estudiante")";
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('No se pudo obtener información:', error, xhr);
+                    Swal.fire({
+                        text: 'Ocurrió un error al enviar el formulario.',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar',
+                    });
+                }
+            });
+        }
+        // $("input[name = 'tipoIngreso'], #modalidad, #nivelIngreso, #programaInteres, #escuela, #periodo, #sede").change(function () {
+        //     GuardarInscripcionMaterias();
+        // });
 
     </script>
 }

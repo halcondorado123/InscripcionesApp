@@ -3,6 +3,17 @@ using InscripcionesApp.DataAccess.DataEstudiante;
 using InscripcionesApp.DataAccess.DataFuncionario;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddSession();
 // Agregar la configuración desde el archivo appsettings.json
 builder.Configuration.AddJsonFile("appsettings.json", optional: false);

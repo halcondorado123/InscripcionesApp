@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Lista de Estudiantes";
+}
+
+<h2>Lista de Estudiantes</h2>
+
+<table id="tablaEstudiantes" class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Primer Nombre</th>
+            <th>Segundo Nombre</th>
+            <th>Primer Apellido</th>
+            <th>Segundo Apellido</th>
+            <th>Correo Electrónico</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("ObtenerEstudiantes", "Estudiante")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var tableBody = $('#tablaEstudiantes tbody');
+                    tableBody.empty(); // Limpiar la tabla antes de agregar los datos
+
+                    data.forEach(function (estudiante) {
+                        var row = '<tr>' +
+                            '<td>' + estudiante.id + '</td>' +
+                            '<td>' + estudiante.primerNombre + '</td>' +
+                            '<td>' + estudiante.segundoNombre + '</td>' +
+                            '<td>' + estudiante.primerApellido + '</td>' +
+                            '<td>' + estudiante.segundoApellido + '</td>' +
+                            '<td>' + estudiante.correoElectronico + '</td>' +
+                            '</tr>';
+                        tableBody.append(row);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error al obtener los datos: ', error);
+                }
+            });
+        });
+    </script>
+}

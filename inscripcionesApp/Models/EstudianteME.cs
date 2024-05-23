@@ -5,8 +5,8 @@ namespace inscripcionesApp.Models
 {
     public class EstudianteME
     {
-
         public int Est_ID { get; set; }
+        public int Inscripcion_ID { get; set; }         // Vincula al formulario #01
         public int RolID { get; set; }
         public int Estatus_Est_ID { get; set; }
         public int Prog_ID { get; set; }
@@ -37,5 +37,6 @@ namespace inscripcionesApp.Models
         public RolME? Rol { get; set; }
         public EstatusEstudianteME? EstatusEstudiante { get; set; }
         public ProgramaME? Programa { get; set; }
+        public EstudianteInscripcionME? estudianteInscripcion { get; set; }
     }
 }

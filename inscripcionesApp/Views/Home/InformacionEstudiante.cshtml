@@ -16,31 +16,31 @@
     <h2 class="text-center">Informacion del Estudiante</h2>
     <p class="text-center" style="max-width: 1200px; margin: 0 auto;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo quod harum doloribus placeat quibusdam ad consectetur tenetur molestiae, corporis autem? Voluptatem, quibusdam quasi provident tempore alias neque officiis est aut!</p> *@
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card" style="width: 100%; border-radius: 50px;">
-                    <div class="card-body bg-primary">
-                        <h5 class="card-title text-white">1. Información inscripción</h5>
-                    </div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card" style="width: 100%; border-radius: 50px;">
+                <div class="card-body bg-primary">
+                    <h5 class="card-title text-white">1. Información inscripción</h5>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card" style="width: 100%; border-radius: 50px;">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title text-white">2. Información Personal</h5>
-                    </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card" style="width: 100%; border-radius: 50px;">
+                <div class="card-body bg-warning">
+                    <h5 class="card-title text-white">2. Información Personal</h5>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card" style="width: 100%; border-radius: 50px;">
-                    <div class="card-body bg-secondary">
-                        <h5 class="card-title text-white">3. Confirme sus datos</h5>
-                    </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card" style="width: 100%; border-radius: 50px;">
+                <div class="card-body bg-secondary">
+                    <h5 class="card-title text-white">3. Confirme sus datos</h5>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 
@@ -141,6 +141,16 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                        <!-- Primer conjunto de formularios -->
+                        <div class="col-md-4" style="margin: 12px auto">
+                            <!-- Grupo 1: Teléfono principal -->
+                            <div class="form-group">
+                                <label for="direccionEstudiante" style="margin: 12px auto">Dirección de residencia: *:</label>
+                                <input type="text" class="form-control" id="direccionEstudiante" placeholder="Ingrese su dirección de residencia">
+                            </div>
+                        </div>
+
                         <!-- INFORMACION DEL DOCUMENTO -->
                         <div class="row">
                             <!-- Grupo 1: Grupo Sanguíneo y Tipo de Documento -->
@@ -192,105 +202,230 @@
                             </div>
                         </div>
 
+
+                            <div class="row">
+                                <!-- Tercer conjunto de formularios -->
+                                <div class="col-md-4" style="margin: 12px auto">
+                                    <!-- Formulario de País de Expedición -->
+                                    <div class="form-group">
+                                        <label for="paisExpedicion" style="margin: 12px auto">País de expedición:</label>
+                                        <select class="form-select" id="paisExpedicion" required>
+                                            <option value="" selected>Seleccione el país de expedición</option>
+                                            <option value="Colombia">Colombia</option>
+                                            <option value="Estados Unidos">Estados Unidos</option>
+                                            <option value="Mexico">Mexico</option>
+                                            <option value="República Dominicana">República Dominicana</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- Formulario de Departamento de Expedición -->
+                                    <div class="form-group" style="margin: 12px auto">
+                                        <label for="departamentoExpedicion;" style="margin: 12px auto">Departamento o Estado *:</label>
+                                        <select class="form-select form-control" id="departamentoExpedicion" required>
+                                            <option value="" selected>Departamento ó Estado de expedición</option>
+                                            <option value="departamento1">Departamento1</option>
+                                            <option value="departamento2">Departamento2</option>
+                                            <option value="departamento3">Departamento3</option>
+                                            <option value="departamento4">Departamento4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- Formulario de Ciudad de Expedición -->
+                                    <div class="form-group" style="margin: 12px auto">
+                                        <label for="ciudadExpedicion" style="margin: 12px auto">Ciudad de expedición:</label>
+                                        <select class="form-select" id="ciudadExpedicion" required>
+                                            <option value="" selected>Seleccione la ciudad de expedición</option>
+                                            <option value="ciudad1">Ciudad1</option>
+                                            <option value="ciudad2">Ciudad2</option>
+                                            <option value="ciudad3">Ciudad3</option>
+                                            <option value="ciudad4">Ciudad4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                         <div class="row">
+                            <!-- Primer conjunto de formularios -->
+                            <div class="col-md-4" style="margin: 12px auto">
+                                <!-- Grupo 1: Teléfono principal -->
+                                <div class="form-group">
+                                    <label for="telefonoPrincipal" style="margin: 12px auto">Teléfono principal *:</label>
+                                    <input type="number" class="form-control" id="telefonoPrincipal" placeholder="300-0000000">
+                                </div>
+                            </div>
+                            <!-- Segundo conjunto de formularios -->
+                            <div class="col-md-4" style="margin: 12px auto">
+                                <!-- Grupo 2: Teléfono secundario -->
+                                <div class="form-group">
+                                    <label for="telefonoSecundario" style="margin: 12px auto">Teléfono secundario:</label>
+                                    <input type="number" class="form-control" id="telefonoSecundario" placeholder="300-0000000">
+                                </div>
+                            </div>
                             <!-- Tercer conjunto de formularios -->
                             <div class="col-md-4" style="margin: 12px auto">
-                                <!-- Formulario de País de Expedición -->
+                                <!-- Grupo 3: Correo electrónico -->
                                 <div class="form-group">
-                                    <label for="paisExpedicion" style="margin: 12px auto">País de expedición:</label>
-                                    <select class="form-select" id="paisExpedicion" required>
-                                        <option value="" selected>Seleccione el país de expedición</option>
-                                        <option value="Colombia">Colombia</option>
-                                        <option value="Estados Unidos">Estados Unidos</option>
-                                        <option value="Mexico">Mexico</option>
-                                        <option value="República Dominicana">República Dominicana</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <!-- Formulario de Departamento de Expedición -->
-                                <div class="form-group" style="margin: 12px auto">
-                                    <label for="departamentoExpedicion;" style="margin: 12px auto">Departamento o Estado *:</label>
-                                    <select class="form-select form-control" id="departamentoExpedicion" required>
-                                        <option value="" selected>Departamento ó Estado de expedición</option>
-                                        <option value="departamento1">Departamento1</option>
-                                        <option value="departamento2">Departamento2</option>
-                                        <option value="departamento3">Departamento3</option>
-                                        <option value="departamento4">Departamento4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <!-- Formulario de Ciudad de Expedición -->
-                                <div class="form-group" style="margin: 12px auto">
-                                    <label for="ciudadExpedicion" style="margin: 12px auto">Ciudad de expedición:</label>
-                                    <select class="form-select" id="ciudadExpedicion" required>
-                                        <option value="" selected>Seleccione la ciudad de expedición</option>
-                                        <option value="ciudad1">Ciudad1</option>
-                                        <option value="ciudad2">Ciudad2</option>
-                                        <option value="ciudad3">Ciudad3</option>
-                                        <option value="ciudad4">Ciudad4</option>
-                                    </select>
+                                    <label for="correoEstudiante" style="margin: 12px auto">Correo electrónico *:</label>
+                                    <input type="text" class="form-control" id="correoEstudiante" placeholder="correo@example.com">
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Sexo del estudiante -->
-                        <div>
-                            <label for="sexoEstudiante" style="margin: 12px auto">Sexo:</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="sexoEstudiante" id="masculino" value="masculino" checked>
-                                <label class="form-check-label" for="masculino">
-                                    Masculino
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="sexoEstudiante" id="femenino" value="femenino">
-                                <label class="form-check-label" for="femenino">
-                                    Femenino
-                                </label>
-                            </div>
-                        </div>
 
-                        <!-- Estado Civil -->
-                        <div>
-                            <label for="estadoCivil" style="margin: 12px auto">Estado civil:</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estadoCivil" id="soltero" value="soltero" checked>
-                                <label class="form-check-label" for="soltero">
-                                    Soltero(a)
-                                </label>
+                            <!-- Sexo del estudiante -->
+                            <div>
+                                <label for="sexoEstudiante" style="margin: 12px auto">Sexo:</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="sexoEstudiante" name="sexoEstudiante" id="masculino" value="masculino" checked>
+                                    <label class="form-check-label" for="masculino">
+                                        Masculino
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="sexoEstudiante" name="sexoEstudiante" id="femenino" value="femenino">
+                                    <label class="form-check-label" for="femenino">
+                                        Femenino
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estadoCivil" id="casado" value="casado">
-                                <label class="form-check-label" for="casado">
-                                    Casado(a)
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estadoCivil" id="unionLibre" value="unionLibre">
-                                <label class="form-check-label" for="unionLibre">
-                                    Unión libre
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estadoCivil" id="viudo" value="viudo">
-                                <label class="form-check-label" for="viudo">
-                                    Viudo(a)
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estadoCivil" id="separado" value="separado">
-                                <label class="form-check-label" for="separado">
-                                    Separado(a)
-                                </label>
-                            </div>
-                        </div>
 
-                        <a href="#" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a>
-                        @* <a href="@Url.Action("InformacionEstudiante", "Estudiante")" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a> *@
-                        <a href="#" class="btn bg-light text-dark btn-lg my-4">Cancelar</a>
+                            <!-- Estado Civil -->
+                            <div>
+                                <label for="estadoCivil" style="margin: 12px auto">Estado civil:</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="estadoCivil" id="soltero" value="soltero" checked>
+                                    <label class="form-check-label" for="soltero">
+                                        Soltero(a)
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="estadoCivil" id="casado" value="casado">
+                                    <label class="form-check-label" for="casado">
+                                        Casado(a)
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="estadoCivil" id="unionLibre" value="unionLibre">
+                                    <label class="form-check-label" for="unionLibre">
+                                        Unión libre
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="estadoCivil" id="viudo" value="viudo">
+                                    <label class="form-check-label" for="viudo">
+                                        Viudo(a)
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="estadoCivil" id="separado" value="separado">
+                                    <label class="form-check-label" for="separado">
+                                        Separado(a)
+                                    </label>
+                                </div>
+                            </div>
+
+@*                             <a href="#" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a> *@
+                            @* <a href="@Url.Action("InformacionEstudiante", "Estudiante")" class="btn bg-primary text-light btn-lg my-4"><b>Continuar</b></a> *@
+                        <a href="javascript:void(0);" class="btn bg-info btn-lg my-4" onclick="enviarInformacionEstudiante()"><b>Continuar</b></a>
+                            <a href="#" class="btn bg-light text-dark btn-lg my-4">Cancelar</a>
 
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+@section Scripts
+{
+    <script>
+
+        function sexoEstudianteSeleccion() {
+            $("input[name='sexoEstudiante']").change(function () {
+                // Obtener el valor del tipo de ingreso seleccionado
+                var sexoEstudianteSeleccionado = $(this).val();
+
+                // Realizar una solicitud AJAX al servidor
+                $.ajax({
+                    url: "@Url.Action("ObtenerSexoEstudiante", "Estudiante")",
+                    type: 'GET', // O 'POST' dependiendo del método del controlador
+                    dataType: 'json', // Especificar el tipo de datos esperado en la respuesta
+                    data: {
+                        sexoEstudiante: sexoEstudianteSeleccionado // Enviar el tipo de ingreso seleccionado al servidor
+                    },
+                    success: function (response) {
+                        // Manejar la respuesta recibida del servidor
+                        console.log('Respuesta del servidor:', response);
+                        $("#modalidad").prop("disabled", false);
+                        // Aquí puedes realizar acciones adicionales basadas en la respuesta recibida
+                    },
+                    error: function (xhr, status, error) {
+                        // Manejar el error en caso de que ocurra
+                        console.error('Error al realizar la solicitud AJAX:', error);
+                    }
+                });
+            });
+        }
+
+
+
+        function enviarInformacionEstudiante() {
+            var formData = new FormData();
+            formData.append('primerNombre', $('#primerNombre').val());
+            formData.append('segundoNombre', $("#segundoNombre").val());
+            formData.append('primerApellido', $("#primerApellido").val());
+            formData.append('segundoApellido', $("#segundoApellido").val());
+            formData.append('fechaNacimiento', $("#fechaNacimiento").val());
+            formData.append('paisNacimiento', $("#paisNacimiento").val());
+            formData.append('departamentoNacimiento', $("#departamentoNacimiento").val());
+            formData.append('ciudadNacimiento', $("#ciudadNacimiento").val());
+            formData.append('direccion', $("#direccionEstudiante").val());
+            formData.append('grupoSanguineo', $("#grupoSanguineo").val());
+            formData.append('tipoDocumento', $("#tipoDocumento").val());
+            formData.append('numeroDocumento', $("#numeroDocumento").val());
+            formData.append('fechaExpedicion', $("#fechaExpedicion").val());
+            formData.append('paisExpedicion', $("#paisExpedicion").val());
+            formData.append('departamentoExpedicion', $("#departamentoExpedicion").val());
+            formData.append('ciudadExpedicion', $("#ciudadExpedicion").val());
+            formData.append('sexoEstudiante', $("input[name='sexoEstudiante']").val()); // POR VALIDAR
+            formData.append('estadoCivil', $("input[name='estadoCivil']").val());       // POR VALIDAR
+            formData.append('telefonoPrincipal', $("#telefonoPrincipal").val());                  // POR VALIDAR
+            formData.append('telefonoSecundario', $("#telefonoSecundario").val());                 // POR VALIDAR
+            formData.append('correo', $("#correoEstudiante").val());
+            // fECHA DE ACTUALIZACION == Est_FechaActualizacion == Est_FechaInscripcion
+            // Inscripcion_ID <= Desde primer formulario
+            $.ajax({
+                url: "@Url.Action("GuardarSegundoFormulario", "Estudiante")",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (d) {
+                    Swal.fire({
+                        title: '¡Atención!',
+                        icon: 'success',
+                        text: 'Te invitamos a mantener los datos actualizados periodicamente',
+                        confirmButtonText: 'Aceptar',
+                    }).then(() => {
+                        location.href = "/Home/Index";
+                    });
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '¡Atención!',
+                        text: 'Hubo un error al procesar tu petición.'
+                    });
+                }
+            });
+        }
+    </script>
+}
+
