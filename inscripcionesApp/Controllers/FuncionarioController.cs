@@ -34,7 +34,7 @@ namespace InscripcionesApp.Controllers
             }
         }
 
-        [HttpGet("id/{id:int}")]
+        [HttpGet("id")]
         public async Task<ActionResult<EstudianteME>> ObtenerEstudiantePorId(int id)
         {
             if (id <= 0)

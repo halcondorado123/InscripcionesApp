@@ -1,0 +1,209 @@
+﻿<style>
+    .table-responsive {
+        display: block;
+        width: 100%;
+        max-width: 1600px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table thead th, .table tbody td {
+        white-space: nowrap;
+    }
+
+    .form-control {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 1.1rem;
+    }
+</style>
+
+
+<div class="mb-3">
+    <div class="row mt-3">
+        <div class="col-md-2 mb-2">
+            <input type="text" id="txtId" class="form-control" placeholder="Buscar por ID">
+        </div>
+        <div class="col-md-2 mb-2">
+            <input type="text" id="txtPrimerApellido" class="form-control" placeholder="Primer Apellido">
+        </div>
+        <div class="col-md-2 mb-2">
+            <input type="text" id="txtSegundoApellido" class="form-control" placeholder="Segundo Apellido">
+        </div>
+        <div class="col-md-2 mb-2">
+            <input type="text" id="txtIdentificacion" class="form-control" placeholder="Buscar por Identificación">
+        </div>
+        <div class="col-md-4 mb-2">
+            <button id="btnBuscar" class="btn btn-secondary mr-2">Buscar</button>
+            <button id="btnTodos" class="btn btn-primary">Todos los Registros</button>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table id="tablaEstudiantes" class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Inscripción ID</th>
+                <th>Rol ID</th>
+                <th>Estatus Est ID</th>
+                <th>Prog ID</th>
+                <th>Nivel Ingreso ID</th>
+                <th>Primer Nombre</th>
+                <th>Segundo Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>
+                <th>Fecha de Nacimiento</th>
+                <th>País de Nacimiento</th>
+                <th>Departamento de Nacimiento</th>
+                <th>Ciudad de Nacimiento</th>
+                <th>Dirección</th>
+                <th>Grupo Sanguíneo</th>
+                <th>Tipo de Documento</th>
+                <th>Número de Documento</th>
+                <th>Fecha de Expedición</th>
+                <th>País de Expedición</th>
+                <th>Departamento de Expedición</th>
+                <th>Ciudad de Expedición</th>
+                <th>Sexo</th>
+                <th>Estado Civil</th>
+                <th>Teléfono Principal</th>
+                <th>Teléfono Secundario</th>
+                <th>Correo Electrónico</th>
+                <th>Fecha de Inscripción</th>
+                <th>Fecha de Actualización</th>
+                <th>Programa - ID</th>
+                <th>Programa - Nivel de Ingreso</th>
+                <th>Programa - Escuela</th>
+                <th>Programa - Nombre</th>
+                <th>Programa - Modalidad</th>
+                <th>Programa - Sede</th>
+                <th>Programa - Periodo</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            cargarTodosLosRegistros();
+        });
+
+        function cargarTodosLosRegistros() {
+            $.ajax({
+                url: '@Url.Action("ObtenerEstudiantes", "Funcionario")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var tableBody = $('#tablaEstudiantes tbody');
+                    tableBody.empty(); // Limpiar la tabla antes de agregar los datos
+
+                    data.forEach(function (estudiante) {
+                        var row = $('<tr>'); // Crear un elemento de fila
+
+                        // Agregar celdas a la fila
+                        row.append('<td>' + estudiante.est_ID + '</td>');
+                        row.append('<td>' + estudiante.inscripcion_ID + '</td>');
+                        row.append('<td>' + estudiante.rolID + '</td>');
+                        row.append('<td>' + estudiante.estatus_Est_ID + '</td>');
+                        row.append('<td>' + estudiante.prog_ID + '</td>');
+                        row.append('<td>' + estudiante.id_Nivel_Ingreso + '</td>');
+                        row.append('<td>' + estudiante.est_PrimerNombre + '</td>');
+                        row.append('<td>' + estudiante.est_SegundoNombre + '</td>');
+                        row.append('<td>' + estudiante.est_PrimerApellido + '</td>');
+                        row.append('<td>' + estudiante.est_SegundoApellido + '</td>');
+                        row.append('<td>' + estudiante.est_FechaNacimiento + '</td>');
+                        row.append('<td>' + estudiante.est_PaisNacimiento + '</td>');
+                        row.append('<td>' + estudiante.est_DepartamentoNacimiento + '</td>');
+                        row.append('<td>' + estudiante.est_CiudadNacimiento + '</td>');
+                        row.append('<td>' + estudiante.est_Direccion + '</td>');
+                        row.append('<td>' + estudiante.est_GrupoSanguineo + '</td>');
+                        row.append('<td>' + estudiante.est_TipoDocumento + '</td>');
+                        row.append('<td>' + estudiante.est_NumeroDocumento + '</td>');
+                        row.append('<td>' + estudiante.est_FechaExpedicionDoc + '</td>');
+                        row.append('<td>' + estudiante.est_PaisExpedicion + '</td>');
+                        row.append('<td>' + estudiante.est_DepartamentoExpedicion + '</td>');
+                        row.append('<td>' + estudiante.est_CiudadExpedicion + '</td>');
+                        row.append('<td>' + estudiante.est_Sexo + '</td>');
+                        row.append('<td>' + estudiante.est_EstadoCivil + '</td>');
+                        row.append('<td>' + estudiante.est_TelefonoPrincipal + '</td>');
+                        row.append('<td>' + estudiante.est_TelefonoSecundario + '</td>');
+                        row.append('<td>' + estudiante.est_CorreoElectronico + '</td>');
+                        row.append('<td>' + estudiante.est_FechaInscripcion + '</td>');
+                        row.append('<td>' + estudiante.est_FechaActualizacion + '</td>');
+                        // row.append('<td>' + estudiante.programa.Prog_ID + '</td>');
+                        // row.append('<td>' + estudiante.programa.nivelIngreso + '</td>');
+                        // row.append('<td>' + estudiante.programa.escuela + '</td>');
+                        // row.append('<td>' + estudiante.programa.nombre_Programa + '</td>');
+                        // row.append('<td>' + estudiante.programa.modalidad + '</td>');
+                        // row.append('<td>' + estudiante.programa.sede + '</td>');
+                        // row.append('<td>' + estudiante.programa.periodo + '</td>');
+
+                        tableBody.append(row); // Agregar la fila a la tabla
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error al obtener los datos: ', error);
+                }
+            });
+        }
+
+        function toggleBuscarPorIdButton() {
+            var txtIdValue = $('#txtId').val();
+            var btnBuscarId = $('#btnBuscar');
+            // Si el campo de ID está vacío, deshabilitar el botón de búsqueda por ID
+            if (txtIdValue === '') {
+                btnBuscarId.prop('disabled', true);
+            } else {
+                btnBuscarId.prop('disabled', false);
+            }
+        }
+
+        // Manejar el evento de cambio en el campo de ID para habilitar/deshabilitar el botón de búsqueda
+        $('#txtId').on('input', function () {
+            toggleBuscarPorIdButton();
+        });
+
+        // Manejar el evento de clic en el botón de búsqueda por ID
+        $('#btnBuscar').on('click', function () {
+            var id = $('#txtId').val();
+            obtenerEstudiantePorId();
+            console.log('Buscar por ID:', id);
+        });
+
+        function obtenerEstudiantePorId() {
+            // Manejar el evento de clic en el botón de búsqueda por ID
+            $('#btnBuscar').on('click', function () {
+                var idEstudiante = $('#txtId').val();
+                // Realizar la llamada AJAX para buscar por ID
+                $.ajax({
+                    url: '@Url.Action("ObtenerEstudiantePorId", "Funcionario")', // URL de tu acción en el controlador para buscar por ID
+                    type: 'GET', // Método HTTP GET
+                    data: { id: idEstudiante }, // Datos a enviar al servidor (en este caso, solo el ID)
+                    dataType: 'json', // Tipo de datos que esperas recibir del servidor
+                    success: function (data) {
+                        // Aquí puedes procesar la respuesta del servidor y actualizar la tabla de estudiantes
+                        console.log('Respuesta del servidor:', data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error en la llamada AJAX:', error, xhr, status);
+                        // Aquí puedes manejar el error de la llamada AJAX, si es necesario
+                    }
+                });
+            });
+        }
+    </script>
+}

@@ -182,10 +182,6 @@
                 success: function (response) {
                     console.log(response)
 
-                    // $("#modalidad").append(
-                    //     $("<option>").attr({ "value": "" }).text("Seleccione la modalidad")
-                    // )
-
                     $.each(response, function (i, elemento) {
                         $("#modalidad").append(
                             $("<option>").attr({ "value": elemento.modalidad }).text(elemento.modalidad)

@@ -20,7 +20,7 @@ namespace InscripcionesApp.DataAccess.DataFuncionario
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    string sql = "SELECT * FROM Estudiantes";
+                    string sql = "SELECT * FROM Estudiante";
                     return await connection.QueryAsync<EstudianteME>(sql);
                 }
             }

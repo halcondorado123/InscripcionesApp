@@ -45,7 +45,7 @@
                         </li>
                         <li class="nav-item" style="margin-right: 20px;">
                             <!-- Añade margen derecho -->
-@*                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Registrate">Registrate</a> *@
+                            @*                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Registrate">Registrate</a> *@
                             <a class="nav-link active" aria-current="page" href="./actualizarRegistro.html">Acerca de nosotros</a>
                         </li>
                     </ul>
@@ -64,6 +64,51 @@
         </main>
     </div>
 
+    <!-- Modal para crear usuario -->
+    <div class="modal fade" id="crearUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered rounded" style="border-radius: 50px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crear Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center align-items-center" style="height: 300px;">
+                    <div class="circle-container" style="width: 250px; height: 250px; border-radius: 50%; background-color: lightgray; text-align: center;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3456/3456426.png" class="rounded-circle img-fluid" alt="Imagen de perfil" style="width: 250px; height: 250px; object-fit: cover; display: flex; justify-content: center; align-items: center;">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form id="crearUsuarioForm">
+                        <div class="form-group">
+                            <label for="Email">Correo electrónico:</label>
+                            <input type="email" class="form-control" id="Email" name="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Password">Contraseña:</label>
+                            <input type="password" class="form-control" id="Password" name="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="Nombre" name="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Apellidos">Apellidos:</label>
+                            <input type="text" class="form-control" id="Apellidos" name="Apellidos" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Tipo">Tipo:</label>
+                            <input type="text" class="form-control" id="Tipo" name="Tipo" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" onclick="crearUsuario(), removeBackDrop()">Crear Usuario</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <footer class="navbar-expand-lg text-muted bg-dark" style="height: 60px; position: static; bottom: 0; width: 100%; display: flex; justify-content: center; align-items: center;">
         <div class="container-footer text-white">
@@ -77,8 +122,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
-        <script>
-            function solicitarCredenciales() {
+    <script>
+        function solicitarCredenciales() {
             Swal.fire({
                 title: 'Para iniciar sesión, ingrese sus credenciales.',
                 imageUrl: 'https://cdn-icons-png.freepik.com/512/4789/4789245.png', // URL de la imagen
@@ -86,30 +131,44 @@
                 imageHeight: 100, // Altura de la imagen en píxeles
                 imageAlt: 'Imagen de perfil', // Texto alternativo para la imagen
                 html: `<input type="text" id="usuario" class="swal2-input" placeholder="Usuario">
-                   <input type="password" id="contrasena" class="swal2-input" placeholder="Contraseña">`,
+                 <input type="password" id="contrasena" class="swal2-input" placeholder="Contraseña">
+                 <div class="mt-3 text-center">
+                    <a href="#" id="login" class="btn btn-primary">Iniciar Sesión</a>
+                    <a href="#" id="cancel" class="btn btn-secondary">Cancelar</a>
+                 </div>
+                 <div class="mt-4 text-center">
+                            <a href="/register" id="register" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">Registrarse</a>
+                 </div>`,
                 focusConfirm: false,
-                showCancelButton: true, // Mostrar botón de cancelar
-                confirmButtonText: 'Iniciar Sesión',
-                cancelButtonText: 'Cancelar',
-                preConfirm: () => {
-                    const usuario = Swal.getPopup().querySelector('#usuario').value
-                    const contrasena = Swal.getPopup().querySelector('#contrasena').value
-                    if (!usuario || !contrasena) {
-                        Swal.showValidationMessage(`Por favor ingrese usuario y contraseña`)
-                    }
-                    return { usuario: usuario, contrasena: contrasena }
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Si se hace clic en "Iniciar Sesión"
-                    // Aquí puedes manejar la lógica para iniciar sesión
-                    console.log('Credenciales:', result.value);
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    // Si se hace clic en "Cancelar" o en cualquier área fuera del modal
-                    console.log('Inicio de sesión cancelado');
-                }
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showDenyButton: false
             });
-            }
+
+            document.getElementById('login').addEventListener('click', () => {
+                const usuario = document.getElementById('usuario').value;
+                const contrasena = document.getElementById('contrasena').value;
+                console.log('Iniciar Sesión - Usuario:', usuario, 'Contraseña:', contrasena);
+                const href = "/Manage/LogIn?email=" + usuario + "&password=" + contrasena;
+
+                // Redireccionar a la página de inicio de sesión
+                window.location.href = href;
+            });
+
+            document.getElementById('cancel').addEventListener('click', () => {
+                console.log('Inicio de sesión cancelado');
+            });
+
+            document.getElementById('register').addEventListener('click', () => {
+                console.log('Redirigiendo a página de registro');
+                Swal.close(); /// Cerrar el modal
+            });
+        }
+
+        
 
         function enviarCredenciales(usuario, contrasena) {
             // Aquí puedes enviar las credenciales al servidor mediante AJAX
@@ -133,6 +192,70 @@
                 }
             });
         }
+
+
+
+
+        function crearUsuario() {
+            var formData = $('#crearUsuarioForm').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "/Manage/CrearUsuario",
+                data: formData,
+                success: function (response) {
+                    console.log("Usuario creado exitosamente");
+
+                    // Mostrar SweetAlert con mensaje de éxito
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Registro exitoso',
+                        text: 'El usuario se ha creado correctamente.',
+                        showConfirmButton: true
+                    }).then((result) => {
+                        // Remover el backdrop después de que el usuario haga clic en "Aceptar"
+                        if (result.isConfirmed) {
+                            $('#crearUsuarioModal').modal('hide');
+                            removeBackDrop();
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error al crear usuario:", error);
+                }
+            });
+        }
+
+        function removeBackDrop() {
+            $('.modal-backdrop').remove();
+        }
+
+        function iniciarSesion() {
+            var email = $('#usuario').val();
+            var password = $('#contrasena').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Manage/Login",
+                data: { email: email, password: password },
+                success: function (response) {
+                    alert("Inicio de sesión exitoso");
+                    window.location.href = "/Home/Index"; // Redirige a la página de inicio después del inicio de sesión exitoso
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error al iniciar sesión:", error);
+                    // Aquí puedes mostrar un mensaje de error al usuario o realizar cualquier acción adicional
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al iniciar sesión. Verifica tus credenciales e intenta nuevamente.',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
+        }
+
+
     </script>
 
 </body>
